@@ -1,6 +1,6 @@
 ### Yêu cầu
-python version: 3.6.10
-ubuntu: 20.04 LTS
+- python version: 3.6.10
+- ubuntu: 20.04 LTS
 
 ### Install 
 
@@ -8,7 +8,8 @@ ubuntu: 20.04 LTS
 2. dataset tải từ link: https://drive.google.com/file/d/1I-XQm32YfVO9uiNQzrXC5uLP6S1aTlTv/view?fbclid=IwAR2SJtVV-zXoU12gzjvmws4MDQoo296tcJcfXAMx0ZFwBHnju_jilEGat4g
 3. unzip dataset vào folder static
 4. python -m venv venv
-5. pip install -r requirements.txt
+5. source ./venv/bin/activate
+6. pip install -r requirements.txt
 
 ### Run Flask
 1. export FLASK_APP=main.py
