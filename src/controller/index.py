@@ -11,6 +11,11 @@ from keras.preprocessing.image import img_to_array
 from PIL import Image
 from keras.applications.vgg16 import preprocess_input
 import pandas as pd
+import pysolr
+
+solr = pysolr.Solr('http://localhost:8983/solr/flowers', always_commit=True)
+
+solr.ping()
 
 index_api = Blueprint('index_api',__name__,
                 template_folder='../templates'
@@ -32,8 +37,11 @@ def home():
 def word():
     if request.method == 'POST':
         text = request.form['query_text']
+        print(text)
     #     xử lý text ở đây
-        return jsonify(text)
+        results = solr.search(text)
+        print(results)
+        return 'hello'
     else:
         return render_template('wordSearch.html')
 

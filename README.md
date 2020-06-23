@@ -10,6 +10,8 @@
 4. python -m venv venv
 5. source ./venv/bin/activate
 6. pip install -r requirements.txt
+7. python load-pre-model.py để load model
+
 
 ### Run Flask
 1. export FLASK_APP=main.py
