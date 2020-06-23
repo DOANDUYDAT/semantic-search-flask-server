@@ -10,6 +10,7 @@ import numpy as np
 from keras.preprocessing.image import img_to_array
 from PIL import Image
 from keras.applications.vgg16 import preprocess_input
+import pandas as pd
 
 index_api = Blueprint('index_api',__name__,
                 template_folder='../templates'
@@ -40,19 +41,30 @@ def word():
 def image():
     if request.method == 'POST':
         file = request.files['query_img']
+        upload_folder = os.path.join(os.getcwd(), 'static/images-upload')
+        
         filename = file.filename
-        img_requested = file.read()
+        image_path = os.path.join(upload_folder, filename)
+        file.save(image_path)
+
+        # img_requested = file.read()
         
         start_time = time.time()
-        images_features_search = vector_search.generate_features_from_image_of_request(img_requested, loaded_model)
+        images_features_search = vector_search.generate_features_from_image_of_request(image_path, loaded_model)
         images = vector_search.search_index_by_value(images_features_search, image_index, file_index, top_n=5)
         run_time = time.time() - start_time
 
-        images_result = [[x[0], x[1], x[2], ' '.join(x[1].split('/')[1].split('_'))] for x in images]     
+        df = pd.read_csv('label-link.csv')
+        df.set_index('label', inplace=True)
+
+        
+
+        images_result = [[x[0], x[1], x[2], ' '.join(x[1].split('/')[1].split('_')), df.loc[[x[1].split('/')[1]]].values[0,0]] for x in images]     
         result = {
             'run_time': run_time,
             'images': images_result,
-            'category': ' '.join(images[0][1].split('/')[1].split('_'))
+            'category': ' '.join(images[0][1].split('/')[1].split('_')),
+            'original_image': 'images-upload/' + filename
         }
         return render_template('imageSearch.html', result=result)
     else:

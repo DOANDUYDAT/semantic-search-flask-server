@@ -240,10 +240,11 @@ def load_glove_vectors(glove_dir, glove_name='glove.6B.300d.txt'):
 
 
 def generate_features_from_image_of_request(file, model):
-    img = Image.open(io.BytesIO(file))
-    if img.mode != 'RGB':
-        img = img.convert('RGB')
-    img = img.resize((224, 224))
+    # img = Image.open(io.BytesIO(file))
+    # if img.mode != 'RGB':
+    #     img = img.convert('RGB')
+    # img = img.resize((224, 224))
+    img = image.load_img(file, target_size=(224, 224))
     img = img_to_array(img)
     img = np.expand_dims(img, axis=0)
     inputs = preprocess_input(img)

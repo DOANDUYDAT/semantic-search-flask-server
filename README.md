@@ -4,7 +4,7 @@
 
 ### Install 
 
-1. tạo folder static
+1. tạo folder: static, static/images-upload
 2. dataset tải từ link: https://drive.google.com/file/d/1I-XQm32YfVO9uiNQzrXC5uLP6S1aTlTv/view?fbclid=IwAR2SJtVV-zXoU12gzjvmws4MDQoo296tcJcfXAMx0ZFwBHnju_jilEGat4g
 3. unzip dataset vào folder static
 4. python -m venv venv

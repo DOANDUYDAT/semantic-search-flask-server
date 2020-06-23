@@ -13,6 +13,7 @@ dist/
 build/
 *.egg-info/
 static/dataset/
+static/images-upload/
 feat_4096.npy
 index_4096.json
 pre-model.hdf5

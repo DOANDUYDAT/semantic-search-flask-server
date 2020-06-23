@@ -89,7 +89,9 @@
 
     {% if result %}
     {% if result.images | length > 0%}
-
+    <div style='width: 100%; display: flex;justify-content: center;align-items: center;'>
+      <img id="original-image" src="/static/{{ result.original_image }}" alt="Your image" /> <br>
+    </div>
     <h4>Category: {{ result.category }}</h4>
     <h4>Search in: {{ result.run_time }} seconds</h4>
     <h2>All your photos:</h2>
@@ -98,6 +100,7 @@
       <img src="/static/{{ i[1] }}" height="200px">
       <figcaption>{{ i[2] }}</figcaption>
       <figcaption>{{ i[3] }}</figcaption>
+      <a href="{{ i[4] }}">Chi tiết</a>
     </figure>
     {% endfor %}
     {% else %}
