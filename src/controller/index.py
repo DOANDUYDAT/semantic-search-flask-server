@@ -37,11 +37,17 @@ def home():
 def word():
     if request.method == 'POST':
         text = request.form['query_text']
-        results_solr = solr.search(text).docs  # type list
-        r = json.dumps(results_solr)
-        loaded_r = json.loads(r)
-        
-        return render_template('wordSearch.html', results=loaded_r)
+        print(text)
+        specific_option = {
+            'hl': 'true',
+            'fl': '*,score',
+            'rows': 10,
+            'sort': 'score desc'
+        }
+        results = solr.search(text, **specific_option)
+
+        # print("-" * 60)
+        return render_template('wordSearch.html',images_url=results,text=text)
     else:
         return render_template('wordSearch.html')
 

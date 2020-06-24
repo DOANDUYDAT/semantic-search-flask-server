@@ -50,6 +50,28 @@
       float: right;
     }
 
+    .link-tag {
+      padding: 25px;
+    }
+
+    a:hover {
+      color: '#2D55AC';
+      text-decoration: none;
+    }
+
+    .content-container {
+      display: -webkit-box;
+      max-width: 100%;
+      height: 46px;
+      font-size: 18px;
+      line-height: 22px;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: '#54C7D8'
+    }
+
     @media screen and (max-width: 500px) {
       .header a {
         float: none;
@@ -83,58 +105,30 @@
         <input type="submit">
       </form>
     </div>
-
-    {% if results %}
-    {% for result in results %}
-      <div>
-        <a href="{{ result.link[0] }}">{{ result.title[0] }}</a>
-        <div>
-          <h6>{{ result.category[0] }}</h6>
-          <p class="link-content">{{ result.content[0] }}</p>
-        </div>
+    {% if images_url %}
+    <div style="display:flex;justify-content:start;align-items: center;">
+      <h2>Key Search:  {{text}}</h2>
+    </div>
+    <h2>About {{images_url|length}} results  </h2>
+    {% for info in images_url %}
+    <a href="{{ info['link'][0] }}" class='link-tag'>
+      <div style="font-size: 14px;">
+        keyword: {{ info['category'][0] }}
       </div>
+      <div style="font-size: 20px;font-weight: 600;color:'#527BCA'">
+        {{info['title'][0]}}
+      </div>
+      <div class='content-container'>
+        {{ info['content'][0]}}
+      </div>
+    </a>
     {% endfor %}
     {% else %}
-    <h2> Have no result</h2>
+    <h2>Have no information about this flower</h2>
     {% endif %}
-<!-- 
-    {% if images %}
-    <h2>Key Search: </h2>
-    <h3>{{text}}</h3>
-    <h2>Results:</h2>
-    {% for image in images %}
-    <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
-      <img src="{{ image['name'] }}" height="200px">
-      <figcaption>{{ image['caption'] }}</figcaption>
-    </figure>
-    {% endfor %}
-    {% else %}
-    <h2>Have no image</h2>
-    {% endif %} -->
   </div>
 
-
-
   <script>
-    $(document).ready(function () {
-      $('.imageInput').hide();
-    });
-
-    function loadFileUrl(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          $('#imageUrlInput')
-            .attr('src', e.target.result)
-            .width(300)
-            .height(300);
-          $('.imageInput').show();
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
   </script>
 </body>
 
