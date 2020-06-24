@@ -84,6 +84,19 @@
       </form>
     </div>
 
+    {% if results %}
+    {% for result in results %}
+      <div>
+        <a href="{{ result.link[0] }}">{{ result.title[0] }}</a>
+        <div>
+          <h6>{{ result.category[0] }}</h6>
+          <p class="link-content">{{ result.content[0] }}</p>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+    <h2> Have no result</h2>
+    {% endif %}
 <!-- 
     {% if images %}
     <h2>Key Search: </h2>

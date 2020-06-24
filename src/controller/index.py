@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, url_for, redirect
+from flask import Blueprint, request, render_template, url_for, redirect, jsonify, json
 from flask import Flask
 from keras.engine.saving import load_model
 import src.libs.vector_search as vector_search
@@ -37,11 +37,11 @@ def home():
 def word():
     if request.method == 'POST':
         text = request.form['query_text']
-        print(text)
-    #     xử lý text ở đây
-        results = solr.search(text)
-        print(results)
-        return 'hello'
+        results_solr = solr.search(text).docs  # type list
+        r = json.dumps(results_solr)
+        loaded_r = json.loads(r)
+        
+        return render_template('wordSearch.html', results=loaded_r)
     else:
         return render_template('wordSearch.html')
 
